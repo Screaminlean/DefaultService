@@ -42,9 +42,9 @@ Right click the project, select publish and create a publish profile.
 
 File publish options
 
-- `Produce single file` - **Checked**
-- `Enable ReadyToRun compilation` - **Checked**
--  `Trim unused code` - **UnChecked**
+- [x] `Produce single file`
+- [x] `Enable ReadyToRun compilation`
+- [ ] `Trim unused code` 
 
 # Windows Service Management
 
