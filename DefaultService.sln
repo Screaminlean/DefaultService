@@ -5,16 +5,27 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DefaultService", "DefaultService\DefaultService.csproj", "{B0610053-F7D3-43B5-B601-B55B9C7DB492}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{96818AB2-9A90-4EEA-9D80-E758A234F777}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B0610053-F7D3-43B5-B601-B55B9C7DB492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B0610053-F7D3-43B5-B601-B55B9C7DB492}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0610053-F7D3-43B5-B601-B55B9C7DB492}.Debug|x64.ActiveCfg = Debug|x64
+		{B0610053-F7D3-43B5-B601-B55B9C7DB492}.Debug|x64.Build.0 = Debug|x64
 		{B0610053-F7D3-43B5-B601-B55B9C7DB492}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0610053-F7D3-43B5-B601-B55B9C7DB492}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0610053-F7D3-43B5-B601-B55B9C7DB492}.Release|x64.ActiveCfg = Release|x64
+		{B0610053-F7D3-43B5-B601-B55B9C7DB492}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
