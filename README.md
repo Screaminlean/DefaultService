@@ -1,9 +1,35 @@
 # DefaultService
-This repo is just documenting building a windows hosted service in .NET 7, the default template was used with Top Level Statements. This configuration seems to work with no **Error 1053**.
+This repo is just documenting building a windows hosted service in .NET 7, the default template was used with Top Level Statements. 
+This configuration seems to work with no **Error 1053**.
+
+# Considerations
+## Application Execution
+By default, the current directory for your Windows service is the System folder, **Not** the directory that your .exe is in ~~(C:\Path\To\My\App.exe)~~. We need to bare this in mind when trying ro access files with a relative path as the application will look for those files in the system directory and cause and exception that will cause the service to bail on start with **Error 1053** or an error while running and if not handled will cost you a great deal of time trying to track it down.
+
+- **x64 C:\windows\System32**
+- **x86 C:\Windows\SysWOW64**
+
+## Debugging
+When you debug your service and everythinhg works as expected but then fails when you deploy the service, consider the above!
+
+### Things to try
+**In Program.cs**  set the current directory, this should then point to the directory of your .exe. 
+[See this post on StackOverFlow](https://stackoverflow.com/questions/2714262/relative-path-issue-with-net-windows-service), I can not take credit for these, I have just noted them here to help.
+```csharp
+  static void Main(string[] args)
+  {
+    Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);            
+  }
+```
 
 # Table of Contents
 - [DefaultService](#defaultservice)
+- [Considerations](#considerations)
+  - [Application Execution](#application-execution)
+  - [Debugging](#debugging)
+    - [Things to try](#things-to-try)
 - [Table of Contents](#table-of-contents)
+- [The Application](#the-application)
   - [Packages](#packages)
   - [Program.cs](#programcs)
   - [Worker.cs](#workercs)
@@ -14,6 +40,7 @@ This repo is just documenting building a windows hosted service in .NET 7, the d
   - [Install a Service](#install-a-service)
   - [Uninstall a Service](#uninstall-a-service)
 
+# The Application
 ## Packages 
 
 - [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting/7.0.0) (included in the template)
@@ -21,7 +48,7 @@ This repo is just documenting building a windows hosted service in .NET 7, the d
 
 ## Program.cs
 Add UseWindowsService.
-```c
+```csharp
 .UseWindowsService()
     .Build();
 ```
@@ -89,7 +116,7 @@ sc.exe description %SERVICE_NAME% %SERVICE_DESCRIPTION%
 IF %ERRORLEVEL% NEQ 0 (Echo "Error adding description to %SERVICE_NAME% service. " &Exit /b 1)
 
 REM Update config
-sc.exe config %SERVICE_NAME% type= own displayname= %DISPLAY_NAME% error= ignore start= auto obj= LocalSystem password= ""
+sc.exe config %SERVICE_NAME% type= own displayname= %DISPLAY_NAME% error= ignore start= auto
 IF %ERRORLEVEL% NEQ 0 (Echo "Error updating %SERVICE_NAME% service config options. " &Exit /b 1)
 
 REM Update recovery options
