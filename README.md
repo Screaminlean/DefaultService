@@ -24,7 +24,7 @@ This configuration seems to work with no **Error 1053**.
 
 # Considerations
 ## Application Execution
-By default, the current directory for your Windows service is the System folder, **Not** the directory that your .exe is in ~~(C:\Path\To\My\App.exe)~~. We need to bare this in mind when trying ro access files with a relative path as the application will look for those files in the system directory and cause and exception that will cause the service to bail on start with **Error 1053** or an error while running and if not handled will cost you a great deal of time trying to track it down.
+By default, the current directory for your Windows service is the System folder, **Not** the directory that your .exe is in ~~(C:\Path\To\My\App.exe)~~. We need to bare this in mind when trying to access files with a relative path as the application will look for those files in the system directory and cause an exception that will cause the service to bail on start with **Error 1053** or an error while running and if not handled will cost you a great deal of time trying to track it down.
 
 - **x64 C:\windows\System32**
 - **x86 C:\Windows\SysWOW64**
