@@ -20,6 +20,8 @@
 This repo is just documenting building a windows hosted service in .NET 7, the default template was used with Top Level Statements. 
 This configuration seems to work with no **Error 1053**.
 
+[Back to the top](#table-of-contents)
+
 # Considerations
 ## Application Execution
 By default, the current directory for your Windows service is the System folder, **Not** the directory that your .exe is in ~~(C:\Path\To\My\App.exe)~~. We need to bare this in mind when trying ro access files with a relative path as the application will look for those files in the system directory and cause and exception that will cause the service to bail on start with **Error 1053** or an error while running and if not handled will cost you a great deal of time trying to track it down.
@@ -39,6 +41,8 @@ When you debug your service and everythinhg works as expected but then fails whe
     Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);            
   }
 ```
+[
+[Back to the top](#table-of-contents)
 
 # The Application
 ## Packages 
@@ -54,6 +58,8 @@ Add UseWindowsService.
 ```
 
 ## Worker.cs
+
+[Back to the top](#table-of-contents)
 
 # Publish
 ## Configuration
@@ -72,6 +78,8 @@ File publish options
 - [x] `Produce single file`
 - [x] `Enable ReadyToRun compilation`
 - [ ] `Trim unused code` 
+
+[Back to the top](#table-of-contents)
 
 # Windows Service Management
 
@@ -166,3 +174,5 @@ for /F "tokens=3 delims=: " %%H in ('sc query %SERVICE_NAME% ^| findstr "       
   )
 )
 ```
+
+[Back to the top](#table-of-contents)
