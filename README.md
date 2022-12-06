@@ -15,6 +15,8 @@
   - [Scripts](#scripts)
   - [Install a Service](#install-a-service)
   - [Uninstall a Service](#uninstall-a-service)
+  - [Start a Service](#start-a-service)
+  - [Stop a Service](#stop-a-service)
 
 # DefaultService
 This repo is just documenting building a windows hosted service in .NET 7, the default template was used with Top Level Statements. 
@@ -87,6 +89,8 @@ File publish options
 The service scripts included in the Scripts directory requires CMD to be run as **Administrator**
 - **installservice.cmd**
 - **deleteservice.cmd**
+- **startservice.cmd**
+- **stopservice.cmd**
 
 Please update the variables in the scripts to suit your application before you execute them. I have tested them several times and they perform as expected on my system. The scripts are provided for assistance and reference with **no guarantee**. It is **your responsability** to check before executing them that they are **NOT** going to **alter or delete** any **important services** on your system.
 
@@ -97,7 +101,7 @@ File **installservice.cmd** is included in the Scripts directory and requires CM
 >installservice
 ```
 
-```bash
+```vb
 @echo OFF
 
 REM Run as Administrator
@@ -132,33 +136,35 @@ sc.exe Failure %SERVICE_NAME% actions= restart/%SERVICE_RESTART_DELAY%/restart/%
 IF %ERRORLEVEL% NEQ 0 (Echo "Error updating %SERVICE_NAME% service recovery options. " &Exit /b 1)
 
 REM Start the service
-for /F "tokens=3 delims=: " %%H in ('sc query %SERVICE_NAME% ^| findstr "        STATE"') do (
-  if /I "%%H" NEQ "RUNNING" (
+FOR /F "tokens=3 delims=: " %%H IN ('sc query %SERVICE_NAME% ^| findstr "        STATE"') DO (
+  IF /I "%%H" NEQ "RUNNING" (
    NET START %SERVICE_NAME%
    IF %ERRORLEVEL% NEQ 0 (Echo "Error starting %SERVICE_NAME% try manual start in services.msc. " &Exit /b 1)
   )
 )
-
 ```
+
+[Back to the top](#table-of-contents)
+
 ## Uninstall a Service
 File **deleteservice.cmd** is included in the Scripts directory and requires CMD to be run as **Administrator**
 ```bash
 >cd script_directory
 >deleteservice
 ```
-```bash
+```vb
 @echo OFF
 
 REM Run as Administrator
+
 REM Stop the service before delete or you will have to reboot for it to be removed
 SET SERVICE_NAME="ANet7DefaultService"
-SET WAIT_TIME=5
 
-REM Stop the service
 ECHO "Trying to stop %SERVICE_NAME%"
 
-for /F "tokens=3 delims=: " %%H in ('sc query %SERVICE_NAME% ^| findstr "        STATE"') do (
-  if /I "%%H" NEQ "STOPPED" (
+REM Stop the service
+FOR /F "tokens=3 delims=: " %%H IN ('sc query %SERVICE_NAME% ^| findstr "        STATE"') DO (
+  IF /I "%%H" NEQ "STOPPED" (
    NET STOP %SERVICE_NAME%
    IF %ERRORLEVEL% NEQ 0 (Echo "Error stopping %SERVICE_NAME% try manual stop in services.msc." &Exit /b 1)
   )
@@ -167,10 +173,62 @@ for /F "tokens=3 delims=: " %%H in ('sc query %SERVICE_NAME% ^| findstr "       
 REM Delete the service
 ECHO "Trying to delete %SERVICE_NAME%"
 
-for /F "tokens=3 delims=: " %%H in ('sc query %SERVICE_NAME% ^| findstr "        STATE"') do (
-  if /I "%%H" NEQ "RUNNING" (
+FOR /F "tokens=3 delims=: " %%H IN ('sc query %SERVICE_NAME% ^| findstr "        STATE"') DO (
+  IF /I "%%H" NEQ "RUNNING" (
    sc.exe delete %SERVICE_NAME% 
    IF %ERRORLEVEL% NEQ 0 (Echo "Error deleting %SERVICE_NAME% service." &Exit /b 1)
+  )
+)
+```
+
+[Back to the top](#table-of-contents)
+
+## Start a Service
+File **startservice.cmd** is included in the Scripts directory and requires CMD to be run as **Administrator**
+```bash
+>cd script_directory
+>startservice
+```
+```vb
+@echo OFF
+
+REM Run as Administrator
+
+SET SERVICE_NAME="ANet7DefaultService"
+
+ECHO "Trying to start %SERVICE_NAME%"
+
+REM Start the service
+FOR /F "tokens=3 delims=: " %%H IN ('sc query %SERVICE_NAME% ^| findstr "        STATE"') DO (
+  IF /I "%%H" NEQ "RUNNING" (
+   NET START %SERVICE_NAME%
+   IF %ERRORLEVEL% NEQ 0 (Echo "Error starting %SERVICE_NAME% try manual start in services.msc. " &Exit /b 1)
+  )
+)
+```
+
+[Back to the top](#table-of-contents)
+
+## Stop a Service
+File **stopservice.cmd** is included in the Scripts directory and requires CMD to be run as **Administrator**
+```bash
+>cd script_directory
+>stopservice
+```
+```vb
+@echo OFF
+
+REM Run as Administrator
+
+SET SERVICE_NAME="ANet7DefaultService"
+
+REM Stop the service
+ECHO "Trying to stop %SERVICE_NAME%"
+
+FOR /F "tokens=3 delims=: " %%H IN ('sc query %SERVICE_NAME% ^| findstr "        STATE"') DO (
+  IF /I "%%H" NEQ "STOPPED" (
+   NET STOP %SERVICE_NAME%
+   IF %ERRORLEVEL% NEQ 0 (Echo "Error stopping %SERVICE_NAME% try manual stop in services.msc." &Exit /b 1)
   )
 )
 ```
