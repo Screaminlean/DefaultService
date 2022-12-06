@@ -41,7 +41,7 @@ When you debug your service and everythinhg works as expected but then fails whe
     Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);            
   }
 ```
-[
+
 [Back to the top](#table-of-contents)
 
 # The Application
