@@ -1,3 +1,21 @@
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [DefaultService](#defaultservice)
+- [Considerations](#considerations)
+  - [Application Execution](#application-execution)
+  - [Debugging](#debugging)
+    - [Things to try](#things-to-try)
+- [The Application](#the-application)
+  - [Packages](#packages)
+  - [Program.cs](#programcs)
+  - [Worker.cs](#workercs)
+- [Publish](#publish)
+  - [Configuration](#configuration)
+- [Windows Service Management](#windows-service-management)
+  - [Scripts](#scripts)
+  - [Install a Service](#install-a-service)
+  - [Uninstall a Service](#uninstall-a-service)
+
 # DefaultService
 This repo is just documenting building a windows hosted service in .NET 7, the default template was used with Top Level Statements. 
 This configuration seems to work with no **Error 1053**.
@@ -21,24 +39,6 @@ When you debug your service and everythinhg works as expected but then fails whe
     Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);            
   }
 ```
-
-# Table of Contents
-- [DefaultService](#defaultservice)
-- [Considerations](#considerations)
-  - [Application Execution](#application-execution)
-  - [Debugging](#debugging)
-    - [Things to try](#things-to-try)
-- [Table of Contents](#table-of-contents)
-- [The Application](#the-application)
-  - [Packages](#packages)
-  - [Program.cs](#programcs)
-  - [Worker.cs](#workercs)
-- [Publish](#publish)
-  - [Configuration](#configuration)
-- [Windows Service Management](#windows-service-management)
-  - [Scripts](#scripts)
-  - [Install a Service](#install-a-service)
-  - [Uninstall a Service](#uninstall-a-service)
 
 # The Application
 ## Packages 
