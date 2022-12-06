@@ -89,7 +89,7 @@ sc.exe description %SERVICE_NAME% %SERVICE_DESCRIPTION%
 IF %ERRORLEVEL% NEQ 0 (Echo "Error adding description to %SERVICE_NAME% service. " &Exit /b 1)
 
 REM Update config
-sc.exe config %SERVICE_NAME% type= own displayname= %DISPLAY_NAME% error= ignore start= auto
+sc.exe config %SERVICE_NAME% type= own displayname= %DISPLAY_NAME% error= ignore start= auto obj= LocalSystem password= ""
 IF %ERRORLEVEL% NEQ 0 (Echo "Error updating %SERVICE_NAME% service config options. " &Exit /b 1)
 
 REM Update recovery options
